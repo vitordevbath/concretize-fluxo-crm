@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Concretize | Mapa Completo do Fluxo Atual do CRM</title>
+  <meta name="description" content="Levantamento visual do funcionamento atual do CRM da Concretize, para referência na migração ao Bitrix.">
+  <style>
+    :root{--purple:#3E3F94;--deep:#28295e;--ink:#252947;--muted:#667085;--orange:#F48633;--paper:#fff;--bg:#f5f6fa;--line:#e1e5ef;--light-purple:#efeffb;--light-orange:#fff4e8;--teal:#147d79;--green:#187b52;--red:#bf414d;--blue:#4264a7;--radius:18px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.56;font-size:15px}a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}button{font:inherit}
+    .shell{display:grid;grid-template-columns:266px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:#fff;border-right:1px solid var(--line);padding:23px 18px 22px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;align-items:center;gap:10px;padding:4px 7px}.brand-symbol{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--purple);color:white;font-size:21px;font-weight:900;box-shadow:inset -6px -6px 0 rgba(244,134,51,.9)}.brand-name{font-size:17px;font-weight:800;letter-spacing:-.6px;line-height:1.1}.brand-small{display:block;font-size:10px;letter-spacing:1.7px;color:var(--orange);font-weight:900;margin-top:3px}.nav-label{color:#8a92a8;font-size:10px;font-weight:850;letter-spacing:1.8px;padding:0 13px;text-transform:uppercase}.toc{display:flex;flex-direction:column;gap:3px}.toc a{display:flex;align-items:center;gap:10px;color:#59617d;font-size:12.5px;font-weight:600;padding:9px 12px;border-radius:10px}.toc a:hover{background:var(--light-purple);color:var(--purple);text-decoration:none}.toc i{font-style:normal;color:#a1a8be;font-size:11px;width:20px}.sidebar-foot{margin-top:auto;background:#f6f5ff;border-radius:14px;padding:13px;font-size:12px;color:#59617d}.sidebar-foot b{color:var(--deep)}
+    .main{min-width:0}.hero{background:linear-gradient(125deg,#2b2c70 0%,#40419a 57%,#5453a0 100%);color:white;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;width:520px;height:520px;border:90px solid rgba(244,134,51,.09);border-radius:50%;right:-240px;top:-300px}.hero:after{content:"";position:absolute;width:420px;height:420px;border:2px solid rgba(255,255,255,.12);border-radius:50%;right:6%;bottom:-330px}.hero-in{max-width:1120px;margin:auto;padding:54px 45px 59px;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50px;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;padding:8px 13px}.eyebrow:before{content:"";width:7px;height:7px;background:var(--orange);border-radius:50%}.hero h1{font-size:clamp(34px,4vw,56px);letter-spacing:-2px;line-height:1.08;margin:22px 0 16px;max-width:770px;font-weight:850}.hero h1 em{font-style:normal;color:#ffb16c}.hero p{max-width:740px;color:#e3e2ff;font-size:16px;margin:0}.hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:26px;color:#d8dcff;font-size:12px}.hero-meta span{padding-right:15px;border-right:1px solid #8184b9}.hero-meta span:last-child{border:0}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:29px}.btn{appearance:none;border:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;font-size:13px;font-weight:800;padding:11px 16px;cursor:pointer}.btn.primary{background:var(--orange);color:#291d1a}.btn.ghost{background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.23)}.btn:hover{filter:brightness(1.05)}
+    article{max-width:1120px;padding:36px 45px 85px;margin:0 auto}.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-66px;position:relative;z-index:2;margin-bottom:32px}.metric{border:1px solid var(--line);background:#fff;border-radius:16px;box-shadow:0 10px 28px rgba(44,49,89,.08);padding:20px 20px 17px;min-height:116px}.metric .num{font-size:26px;line-height:1;font-weight:850;color:var(--purple);letter-spacing:-1px}.metric .lbl{font-size:11px;font-weight:750;color:#57607a;margin-top:10px}.metric .hint{font-size:10px;color:#9299ad;margin-top:4px}
+    .section{scroll-margin-top:24px;margin:48px 0 0}.section.first{margin-top:16px}.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}.chapter{font-weight:900;font-size:12px;letter-spacing:1px;background:var(--light-orange);color:#b66322;border:1px solid #ffe0c3;border-radius:11px;padding:9px 10px;flex:none}.section h2{font-size:27px;line-height:1.15;margin:1px 0 7px;letter-spacing:-.9px}.section-lead{color:var(--muted);max-width:810px;margin:0}.section h3{font-size:18px;line-height:1.3;margin:28px 0 12px;letter-spacing:-.4px}.section h4{font-size:14px;margin:19px 0 9px}.section p{margin:9px 0 13px}.section ul,.section ol{padding-left:22px;margin:12px 0}.section li{margin:6px 0}.section strong{color:#252653}
+    .callout{border:1px solid #cbccee;background:#f3f3ff;border-left:5px solid var(--purple);border-radius:13px;padding:17px 18px;margin:21px 0}.callout.warning{background:#fff6eb;border-color:#ffd7aa;border-left-color:var(--orange)}.callout.danger{background:#fff1f2;border-color:#ffd1d6;border-left-color:var(--red)}.callout p{margin:5px 0}.small{font-size:12px;color:var(--muted)}.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.info-card{border:1px solid var(--line);background:white;padding:19px;border-radius:15px}.info-card .tag{font-size:11px;color:var(--purple);background:var(--light-purple);padding:4px 9px;border-radius:99px;font-weight:800;display:inline-block}.info-card h4{margin:11px 0 7px;font-size:15px}.info-card p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.pill{display:inline-block;background:#e8f4f0;color:#166f51;border-radius:99px;font-size:10px;font-weight:800;padding:5px 9px;white-space:nowrap}.pill.orange{background:#fff0df;color:#a65b20}.pill.purple{background:var(--light-purple);color:var(--purple)}.pill.red{background:#fff0f1;color:#a43a4b}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);background:white;border-radius:14px;margin:14px 0 24px}table{width:100%;border-collapse:collapse;font-size:12.8px;text-align:left;min-width:650px}th{background:#f1f1fa;color:#383a73;font-weight:800;letter-spacing:.1px}td,th{padding:13px 14px;border-bottom:1px solid #eceef4;vertical-align:top}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fcfcff}td:first-child{font-weight:700;color:#34385b}.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}.ok{color:#14805d;font-weight:900}.dash{color:#a9aeba}.observacao{background:#faf9ff;border-radius:12px;border:1px solid #e5e2f7;padding:14px 17px;color:#646b85;font-size:13px}
+    .diagram{margin:21px 0 27px;background:#fff;border:1px solid #dfe2ee;border-radius:20px;box-shadow:0 3px 16px rgba(55,56,108,.035);padding:22px 24px 21px;overflow:hidden}.diagram-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.diagram h3{margin:0;font-size:17px}.diagram-index{border-radius:99px;background:var(--light-purple);color:var(--purple);font-size:10px;padding:5px 10px;font-weight:850;text-transform:uppercase;letter-spacing:1px}.diagram-caption{font-size:11px;color:#7c839a;margin-top:13px;line-height:1.5}.graph-scroll{overflow-x:auto;max-width:100%}.flow-svg{display:block;width:100%;min-width:740px;height:auto}.flow-svg .box{fill:#f5f5ff;stroke:#b9b9e4;stroke-width:2}.flow-svg .box.orange{fill:#fff5ea;stroke:#f7c69b}.flow-svg .box.green{fill:#edf8f3;stroke:#9bd3b9}.flow-svg .box.red{fill:#fff2f3;stroke:#e7a6ae}.flow-svg .box.blue{fill:#edf3fc;stroke:#b3c7e8}.flow-svg .box.dark{fill:var(--purple);stroke:var(--purple)}.flow-svg .flowline{fill:none;stroke:#a2a6c2;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}.flow-svg .node-text{font-family:Inter,Arial,sans-serif;font-weight:750;font-size:18px;fill:#313659;text-anchor:middle}.flow-svg .node-sub{font-family:Inter,Arial,sans-serif;font-weight:500;font-size:13px;fill:#6f7692;text-anchor:middle}.flow-svg .white{fill:white}.flow-svg .label{font-family:Inter,Arial,sans-serif;font-size:12px;fill:#747b94;font-weight:700;text-anchor:middle}.flow-svg .title-small{font-family:Inter,Arial,sans-serif;font-size:11px;fill:#9b9fc0;font-weight:800;letter-spacing:1px;text-anchor:middle}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#6b728c;margin-top:14px}.legend span{display:flex;align-items:center;gap:6px}.dot{width:9px;height:9px;border-radius:99px;background:#aaa8db}.dot.orange{background:#eda359}.dot.green{background:#6fb997}.dot.red{background:#d88088}
+    .step-path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0}.step{position:relative;border:1px solid #e0e3ef;background:white;border-top:4px solid var(--purple);border-radius:13px;padding:15px 12px 13px;min-height:145px}.step:after{content:"→";position:absolute;right:-17px;top:38%;font-weight:900;color:#a7abc1;font-size:21px;z-index:3}.step:last-child:after{display:none}.step .n{font-size:11px;font-weight:900;color:var(--orange)}.step h4{margin:6px 0 6px;font-size:13px}.step p{font-size:11px;color:var(--muted);margin:0}.domains{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.domain{border-radius:16px;background:white;border:1px solid var(--line);padding:22px 19px;border-top:5px solid var(--purple)}.domain:nth-child(2){border-top-color:var(--orange)}.domain:nth-child(3){border-top-color:var(--teal)}.domain b{font-size:16px}.domain p{font-size:12px;color:var(--muted)}.domain .state{font-size:11px;background:#f6f7fc;padding:9px 10px;border-radius:8px;color:#5c647f;margin-top:9px}
+    .guide-head{background:var(--deep);color:white;border-radius:17px;padding:22px 24px;margin-bottom:16px}.guide-head h3{margin:0;color:white}.guide-head p{margin:7px 0 0;color:#dfe1ff;font-size:13px}.quote{border-radius:15px;background:#fff;border:1px solid var(--line);padding:22px 25px;font-size:14px;line-height:1.75}.quote h3{margin:0 0 8px;font-size:17px}.quote p{margin:11px 0}.quote .salute{font-weight:800;color:var(--purple)}
+    .checks{list-style:none;padding:0!important;display:grid;grid-template-columns:1fr 1fr;gap:9px 22px}.checks li{margin:0!important;display:flex;gap:9px;align-items:flex-start;font-size:13px}.checks li:before{content:"✓";flex:none;display:grid;place-items:center;width:19px;height:19px;font-weight:850;font-size:11px;border-radius:6px;background:#e3f2ed;color:#12815c;margin-top:2px}.source-list{list-style:none;padding:0!important;display:grid;grid-template-columns:1fr 1fr;gap:10px}.source-list li{margin:0!important}.source-list a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:12px;font-weight:700;overflow-wrap:anywhere}.source-list a:after{content:" ↗";color:var(--orange)}
+    .foot{margin-top:48px;border-top:1px solid var(--line);padding-top:24px;font-size:12px;color:#8a91a6;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    @media(max-width:1120px){.shell{grid-template-columns:210px minmax(0,1fr)}.hero-in{padding:46px 30px 70px}article{padding:25px 30px 60px}.sidebar{padding:20px 10px}.toc a{font-size:11px}.summary-strip{gap:9px}.metric{padding:15px 13px}.card-grid{gap:10px}.step-path{grid-template-columns:repeat(3,1fr)}.step:nth-child(3):after{display:none}}
+    @media(max-width:740px){.shell{display:block}.sidebar{position:relative;height:auto;padding:11px 18px;display:block}.sidebar .nav-label,.sidebar .toc,.sidebar-foot{display:none}.brand{padding:0}.hero-in{padding:39px 21px 91px}.hero h1{font-size:37px;letter-spacing:-1.6px}.hero p{font-size:14px}.hero-meta{font-size:11px;gap:6px}.hero-meta span{padding-right:9px}article{padding:22px 17px 53px}.summary-strip{grid-template-columns:repeat(2,1fr);margin-top:-82px}.metric{min-height:102px}.metric .num{font-size:23px}.section h2{font-size:23px}.section-head{gap:9px}.chapter{padding:7px}.card-grid,.domains,.mini-grid,.checks,.source-list{grid-template-columns:1fr}.step-path{grid-template-columns:1fr}.step{min-height:0}.step:after,.step:nth-child(3):after{content:"↓";display:block;right:50%;top:auto;bottom:-23px}.step:last-child:after{display:none}.diagram{padding:17px 12px}.diagram h3{font-size:14px}.quote{padding:17px}.section{margin-top:38px}}
+    @page{size:A4;margin:12mm 12mm 14mm}@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html{scroll-behavior:auto}body{background:white;font-size:10.5pt}.shell{display:block}.sidebar,.actions{display:none!important}.hero{border-radius:0}.hero-in{padding:25px 18px 31px}.hero h1{font-size:35px}.hero p{font-size:12px}article{max-width:none;padding:22px 7px}.summary-strip{margin-top:0;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.metric{box-shadow:none;min-height:90px;padding:12px}.metric .num{font-size:18px}.section{break-before:page;margin:0;padding-top:8px}.section h2{font-size:22px}.section h3{font-size:14px;margin-top:15px}.section-lead,.small{font-size:9pt}.callout,.info-card,.diagram,.domain,.step,.guide-head,.quote{break-inside:avoid}.table-wrap{overflow:visible;break-inside:avoid}table{min-width:0;font-size:8.5pt}td,th{padding:7px 8px}.diagram{box-shadow:none;padding:11px}.graph-scroll{overflow:visible}.flow-svg{min-width:0}.step-path{grid-template-columns:repeat(5,1fr);gap:7px}.step{padding:8px;min-height:100px}.step:after{right:-12px}.card-grid{gap:9px}.info-card{padding:12px}.checks{grid-template-columns:1fr 1fr}.source-list a{font-size:8pt}.foot{margin-top:18px}.print-break{break-before:page}}
+    /* Tema neutro: relatório moderno em branco e tons de cinza, sem identidade visual. */
+    :root{--purple:#252932;--deep:#1f242d;--ink:#272b33;--muted:#68717e;--orange:#434b57;--bg:#fff;--line:#e4e7eb;--light-purple:#f5f6f8;--light-orange:#f5f6f8;--teal:#475467;--green:#475467;--red:#657080;--blue:#475467}
+    body,.sidebar,.main{background:#fff}
+    .sidebar{border-right-color:#eceef1}
+    .brand-symbol{display:none}
+    .brand-name{font-weight:800;letter-spacing:-.6px;color:#20252d}
+    .brand-small{color:#89919c;font-weight:700;letter-spacing:1.1px}
+    .sidebar-foot{background:#f7f8fa;color:#757e8a}
+    .toc a{color:#626b78}.toc a:hover{background:#f3f4f6;color:#21262e}
+    .hero{background:#fff;color:#242830;border-bottom:1px solid #ebedf0}
+    .hero:before,.hero:after{display:none}
+    .hero-in{padding-top:50px;padding-bottom:73px}
+    .eyebrow{background:#f6f7f9;color:#515a66;border:1px solid #e8ebef}
+    .eyebrow:before{background:#555e6b}
+    .hero h1 em{color:#242830}
+    .hero p{color:#697280}
+    .hero-meta{color:#7b8490}.hero-meta span{border-right-color:#d7dbe0}
+    .btn.primary{background:#252932;color:white}.btn.ghost{background:#fff;color:#323943;border:1px solid #dce0e5}
+    .summary-strip{margin-top:-35px}.metric{box-shadow:0 7px 20px rgba(25,30,40,.035)}
+    .metric .num{color:#252932}
+    .chapter{background:#f4f5f7;border-color:#e4e7eb;color:#5b6570}
+    .section strong{color:#242830}
+    .callout,.callout.warning,.callout.danger{background:#f8f9fa;border-color:#e4e7eb;border-left-color:#8c96a3}
+    .pill,.pill.orange,.pill.purple,.pill.red{background:#f1f3f5;color:#515a66}
+    .info-card .tag{background:#f1f3f5;color:#5b6470}
+    th{background:#f5f6f8;color:#3c4652}
+    .domain,.domain:nth-child(2),.domain:nth-child(3){border-top-color:#8d96a3}
+    .domain .state{background:#f6f7f8;color:#58616d}
+    .step{border-top-color:#7d8793}.step .n{color:#606a77}
+    .flow-svg .box,.flow-svg .box.orange,.flow-svg .box.green,.flow-svg .box.red,.flow-svg .box.blue{fill:#f8f9fa;stroke:#c8cdd5}
+    .flow-svg .box.dark{fill:#313842;stroke:#313842}
+    .flow-svg .node-text{fill:#343a44}.flow-svg .node-sub{fill:#6f7782}
+    .flow-svg .node-text.white,.flow-svg .node-sub.white{fill:#fff}
+    .dot,.dot.orange,.dot.green,.dot.red{background:#8e97a3}
+    .guide-head{background:#343b46}
+    .checks li:before{background:#edf0f2;color:#55606b}
+    a{color:#303945}
+    @media(max-width:740px){.hero-in{padding:35px 21px 65px}.summary-strip{margin-top:-25px}}
+    @media print{.hero-in{padding:20px 18px 24px}.summary-strip{margin-top:0}.section.first{break-before:auto}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="Navegação do documento">
+    <a class="brand" href="#inicio"><span><span class="brand-name">Mapa do CRM</span><span class="brand-small">DOCUMENTAÇÃO DO FLUXO ATUAL</span></span></a>
+    <div><div class="nav-label">Conteúdo</div><nav class="toc">
+      <a href="#apresentacao"><i>01</i> Apresentação</a><a href="#visao"><i>02</i> Visão do CRM</a><a href="#fluxo-geral"><i>03</i> Fluxo geral</a><a href="#administracao"><i>04</i> Administração</a><a href="#corretor"><i>05</i> Corretor</a><a href="#evolucao"><i>06</i> Secretaria e CCA</a><a href="#automacoes"><i>07</i> Prazos e rodízio</a><a href="#perfis"><i>08</i> Responsabilidades</a><a href="#bitrix"><i>09</i> Migração ao Bitrix</a><a href="#validacoes"><i>10</i> Testes e cautelas</a><a href="#fontes"><i>11</i> Fontes do GitHub</a>
+    </nav></div>
+    <div class="sidebar-foot"><b>Documento de referência</b><br>Levantamento do funcionamento atual, sem decisão sobre as configurações futuras do Bitrix.</div>
+  </aside>
+  <main class="main" id="inicio">
+    <header class="hero"><div class="hero-in">
+      <span class="eyebrow">Levantamento operacional • CRM atual</span>
+      <h1>Mapa completo do <em>fluxo do CRM</em></h1>
+      <p>Administração, corretores, rodízio de leads, acompanhamento comercial, documentação, secretaria e CCA — com diagramas para apoiar a transição ao Bitrix.</p>
+      <div class="hero-meta"><span>Concretize Negócios Imobiliários</span><span>Campo Mourão · PR</span><span>Referência: 28/10/2026</span></div>
+      <div class="actions"><button class="btn primary" onclick="window.print()">▤ &nbsp; Salvar como PDF / Imprimir</button><a class="btn ghost" href="#fluxo-geral">↓ &nbsp; Ver diagramas</a></div>
+    </div></header>
+    <article>
+      <div class="summary-strip" aria-label="Pontos-chave dos prazos">
+        <div class="metric"><div class="num">5 min</div><div class="lbl">Aceite padrão da oferta</div><div class="hint">Parâmetro configurável</div></div>
+        <div class="metric"><div class="num">3 dias</div><div class="lbl">Prazo de atendimento</div><div class="hint">Dias úteis por padrão</div></div>
+        <div class="metric"><div class="num">48h</div><div class="lbl">Faixa de atenção</div><div class="hint">Prazo próximo do limite</div></div>
+        <div class="metric"><div class="num">24h</div><div class="lbl">Aviso de vencimento</div><div class="hint">Notificação quando elegível</div></div>
+      </div>
+
+      <section id="apresentacao" class="section first">
+        <div class="section-head"><span class="chapter">01</span><div><h2>Apresentação para a equipe</h2><p class="section-lead">Texto de contextualização em tom informativo, sem atribuir a quem compartilha decisões de gestão ou implantação.</p></div></div>
+        <div class="quote">
+          <h3>Levantamento de funcionamento do CRM atual</h3>
+          <p class="salute">Pessoal,</p>
+          <p>Segue um levantamento de como funciona atualmente o CRM da Concretize, considerando a área administrativa, os recursos utilizados pelos corretores e a passagem dos clientes entre os setores envolvidos no atendimento.</p>
+          <p>Como o sistema atual será descontinuado e a operação passará ao Bitrix, este material reúne os principais processos e regras encontrados no código do CRM para facilitar o entendimento do funcionamento existente.</p>
+          <p>O fluxo começa com o cadastro do lead pela administração. O cliente pode ser distribuído pelo rodízio automático, atribuído manualmente a um corretor ou mantido sem responsável até uma ação posterior. Quando recebe a oferta, o corretor precisa aceitar ou recusar dentro do prazo aplicável. Depois do aceite, o cliente integra sua carteira, onde ficam os registros de contato, pareceres, etapas comerciais, documentos e retornos.</p>
+          <p>A administração acompanha os clientes por meio de listas, dashboards, Kanban, funil, controle de prazos, tarefas, relatórios e ferramentas de intervenção. Nas etapas seguintes, a secretaria acompanha documentação e pesquisa, enquanto a CCA registra resultados da análise de crédito.</p>
+          <p>O documento também destaca automações e exceções — inclusive prazo vencido, redistribuição, pendências e histórico de responsáveis — que merecem ser consideradas na comparação com o processo futuro.</p>
+          <p><strong>Este é um registro do funcionamento atual, não uma definição de como o Bitrix deverá ser configurado.</strong> As decisões de implantação e permissões cabem às pessoas responsáveis por essa etapa.</p>
+        </div>
+        <div class="callout"><strong>Escopo da verificação</strong><p>O conteúdo foi conferido no repositório privado <code>vitordevbath/concretize-crm</code>, branch <code>main</code>, e em sua documentação versionada. Não houve auditoria do sistema em produção; opções planejadas aparecem separadas das funcionalidades confirmadas.</p></div>
+      </section>
+
+      <section id="visao" class="section">
+        <div class="section-head"><span class="chapter">02</span><div><h2>Como o CRM está organizado</h2><p class="section-lead">O sistema reúne várias camadas do mesmo atendimento, mas não trata todas elas como um único status.</p></div></div>
+        <div class="domains">
+          <div class="domain"><span class="pill purple">Camada 1</span><h3>Comercial</h3><p>O estágio em que o cliente está no relacionamento e na negociação. É representado pelo Kanban e pelo funil comercial, inclusive com etapas específicas por empreendimento.</p><div class="state">Ex.: Novo Lead → Primeiro Contato → Em atendimento → Qualificação → Venda</div></div>
+          <div class="domain"><span class="pill orange">Camada 2</span><h3>Responsabilidade</h3><p>Quem recebeu a oferta, quem aceitou e quem é o responsável efetivo. Aqui ficam aceite, recusa, expiração, atribuições anteriores e rodízio.</p><div class="state">Ex.: Oferta pendente → Aceite → Carteira → Encerramento ou reatribuição</div></div>
+          <div class="domain"><span class="pill">Camada 3</span><h3>Operacional</h3><p>Simulação, entrevista, documentação, pesquisa da secretaria, avaliação CCA, análise e etapas posteriores.</p><div class="state">Ex.: Atendimento → Qualificação → Pesquisa → CCA → Análise</div></div>
+        </div>
+        <div class="callout warning"><strong>Ponto central</strong><p>O aceite da oferta não comprova que houve contato com o cliente. Da mesma forma, agendar um retorno não é o mesmo que registrar uma nova manifestação do cliente. Essas distinções aparecem no banco e nas telas do CRM.</p></div>
+        <h3>Perfis do sistema</h3>
+        <div class="card-grid">
+          <div class="info-card"><span class="tag">ADMIN</span><h4>Administração</h4><p>Cadastro, distribuição, controle de carteira, relatórios, configurações, vendas e supervisão operacional.</p></div>
+          <div class="info-card"><span class="tag">CORRETOR</span><h4>Atendimento</h4><p>Aceite, carteira, pareceres, etapas, retornos, entrevista, simulação e envio de documentos.</p></div>
+          <div class="info-card"><span class="tag">SDR</span><h4>Pré-venda</h4><p>Fila própria de leads ainda sem atribuição, com ações de qualificação e encaminhamento à roleta.</p></div>
+          <div class="info-card"><span class="tag">SECRETARIA</span><h4>Documental</h4><p>Checklist, conferência de arquivos, pesquisa e encaminhamento de etapas.</p></div>
+          <div class="info-card"><span class="tag">CCA</span><h4>Crédito</h4><p>Análise financeira e registro de decisão, incluindo condições e motivos de reprovação.</p></div>
+          <div class="info-card"><span class="tag">HISTÓRICO</span><h4>Trilha de operações</h4><p>Interações, movimentações, versões, notificações e registros de ações administrativas.</p></div>
+        </div>
+      </section>
+
+      <section id="fluxo-geral" class="section">
+        <div class="section-head"><span class="chapter">03</span><div><h2>Fluxo geral: entrada e distribuição</h2><p class="section-lead">O primeiro diagrama reúne as decisões que levam um lead da criação até a carteira do corretor.</p></div></div>
+        <div class="diagram"><div class="diagram-top"><h3>Mapa 1 — Entrada, oferta e aceite</h3><span class="diagram-index">Distribuição</span></div><div class="graph-scroll">
+          <svg class="flow-svg" viewBox="0 0 920 790" role="img" aria-label="Fluxo de cadastro, distribuição, aceite, recusa e fila administrativa">
+            <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#a2a6c2" stroke-width="1.5"/></marker></defs>
+            <path class="flowline" d="M460 104 V141"/><path class="flowline" d="M460 229 V260 H158 V292"/><path class="flowline" d="M460 229 V292"/><path class="flowline" d="M460 260 H762 V292"/>
+            <path class="flowline" d="M158 366 V408 H460 V452"/><path class="flowline" d="M460 366 V452"/><path class="flowline" d="M762 366 V410 H783 V454"/>
+            <path class="flowline" d="M460 534 V571"/><path class="flowline" d="M460 647 V676 H204 V703"/><path class="flowline" d="M460 676 H704 V703"/>
+            <rect class="box dark" x="270" y="30" width="380" height="74" rx="16"/><text class="node-text white" x="460" y="59">Cadastro / importação</text><text class="node-sub white" x="460" y="82">Admin registra dados e primeira entrada</text>
+            <rect class="box" x="290" y="141" width="340" height="88" rx="15"/><text class="node-text" x="460" y="175">Como distribuir?</text><text class="node-sub" x="460" y="199">Regra definida no cadastro</text>
+            <rect class="box blue" x="36" y="292" width="244" height="74" rx="14"/><text class="node-text" x="158" y="321">Rodízio automático</text><text class="node-sub" x="158" y="344">Próximo elegível</text>
+            <rect class="box blue" x="338" y="292" width="244" height="74" rx="14"/><text class="node-text" x="460" y="321">Escolha manual</text><text class="node-sub" x="460" y="344">Corretor específico</text>
+            <rect class="box orange" x="640" y="292" width="244" height="74" rx="14"/><text class="node-text" x="762" y="321">Sem corretor</text><text class="node-sub" x="762" y="344">Fila administrativa</text>
+            <rect class="box dark" x="296" y="452" width="328" height="82" rx="16"/><text class="node-text white" x="460" y="482">Oferta ao corretor</text><text class="node-sub white" x="460" y="507">Prazo próprio de aceite</text>
+            <rect class="box orange" x="656" y="454" width="254" height="83" rx="14"/><text class="node-text" x="783" y="485">Sem oferta ativa</text><text class="node-sub" x="783" y="509">Aguarda distribuição</text>
+            <rect class="box" x="296" y="571" width="328" height="76" rx="15"/><text class="node-text" x="460" y="601">Aceitou no prazo?</text><text class="node-sub" x="460" y="624">Decisão ou timeout</text>
+            <text class="label" x="295" y="688">SIM</text><text class="label" x="624" y="688">NÃO</text>
+            <rect class="box green" x="70" y="703" width="268" height="68" rx="14"/><text class="node-text" x="204" y="732">Carteira do corretor</text><text class="node-sub" x="204" y="753">Início do acompanhamento</text>
+            <rect class="box red" x="582" y="703" width="244" height="68" rx="14"/><text class="node-text" x="704" y="732">Recusa / expiração</text><text class="node-sub" x="704" y="753">Redistribui se elegível</text>
+          </svg>
+        </div><p class="diagram-caption">A recusa ou o vencimento encerra a oferta e pode disparar uma nova distribuição. Se não houver continuidade possível pela regra, o caso exige tratamento pela administração.</p></div>
+        <div class="diagram"><div class="diagram-top"><h3>Mapa 2 — Após o aceite</h3><span class="diagram-index">Atendimento</span></div>
+          <div class="step-path"><div class="step"><span class="n">01</span><h4>Carteira</h4><p>Cliente aceito aparece na lista e no Kanban.</p></div><div class="step"><span class="n">02</span><h4>Contato</h4><p>Corretor faz contato e registra o ocorrido.</p></div><div class="step"><span class="n">03</span><h4>Parecer</h4><p>Atualiza etapa, observação e qualificação.</p></div><div class="step"><span class="n">04</span><h4>Retorno</h4><p>Agenda data e acompanha prazo.</p></div><div class="step"><span class="n">05</span><h4>Desfecho</h4><p>Evolução, venda, encerramento ou redistribuição.</p></div></div>
+          <div class="legend"><span><i class="dot"></i> Etapa comercial</span><span><i class="dot orange"></i> Decisão de distribuição</span><span><i class="dot green"></i> Atendimento aceito</span><span><i class="dot red"></i> Encerramento ou exceção</span></div>
+        </div>
+      </section>
+
+      <section id="administracao" class="section">
+        <div class="section-head"><span class="chapter">04</span><div><h2>Área administrativa</h2><p class="section-lead">O administrador acompanha a operação inteira e trata as exceções que não são resolvidas automaticamente.</p></div></div>
+        <h3>4.1. Cadastro de leads</h3>
+        <p>O cadastro registra nome, telefone com DDI, origem, empreendimento ou produto, data de entrada comercial, quantidade de compras anteriores, classificação do cliente, observação inicial e, quando existente, informações de simulação. Também é possível especificar prazos e a forma de distribuição.</p>
+        <div class="card-grid">
+          <div class="info-card"><span class="tag">OPÇÃO A</span><h4>Rodízio</h4><p>Seleciona o profissional elegível pela fila geral ou pela configuração do empreendimento.</p></div>
+          <div class="info-card"><span class="tag">OPÇÃO B</span><h4>Manual</h4><p>O operador escolhe o corretor que deverá receber a oferta.</p></div>
+          <div class="info-card"><span class="tag">OPÇÃO C</span><h4>Sem corretor</h4><p>Registra explicitamente o lead sem criar oferta, atribuição ou prazo de aceite.</p></div>
+        </div>
+        <p>O sistema avisa quando encontra telefone já cadastrado, mas não bloqueia automaticamente um novo registro. A primeira entrada comercial é gravada separadamente da data de criação do lead, evitando distorção nos relatórios de coorte.</p>
+        <h3>4.2. Abas e filas administrativas</h3>
+        <div class="table-wrap"><table><thead><tr><th>Aba</th><th>Finalidade</th><th>Ação típica</th></tr></thead><tbody>
+          <tr><td>Ativos</td><td>Clientes em andamento</td><td>Acompanhar e consultar o responsável</td></tr><tr><td>Expirados</td><td>Atendimentos vencidos ou rodízio esgotado</td><td>Reatribuir, rodar novamente ou arquivar</td></tr><tr><td>Sem corretor</td><td>Clientes sem profissional atribuído</td><td>Distribuir manualmente ou pela fila</td></tr><tr><td>Sem interesse</td><td>Clientes encerrados por desinteresse</td><td>Consultar histórico</td></tr><tr><td>Desqualificados</td><td>Clientes que não avançaram na qualificação</td><td>Consultar histórico e classificação</td></tr><tr><td>Arquivados</td><td>Registros fora da operação ativa</td><td>Consultar ou reativar quando elegível</td></tr>
+        </tbody></table></div>
+        <p>Há busca e filtros combinados por corretor, empreendimento, origem, status e data. O painel permite ações individuais e em lote, incluindo atribuição, classificação, arquivamento e exclusão.</p>
+        <h3>4.3. Intervenções disponíveis</h3>
+        <ul><li>Redistribuir um lead para outro corretor ou forçar uma passagem pelo rodízio.</li><li>Retirar o profissional responsável, sem confundir essa ação com uma conclusão comercial.</li><li>Reatribuir clientes expirados ou colocá-los novamente na fila automática.</li><li>Prorrogar o prazo de atendimento acrescentando dias úteis.</li><li>Editar dados, corrigir a primeira entrada comercial e registrar uma nova entrada de cliente que voltou.</li><li>Reabrir ou reativar registros elegíveis, mantendo a trilha de movimentações.</li><li>Consultar o histórico de pareceres, responsáveis e registros documentais.</li></ul>
+        <h3>4.4. Módulos do painel</h3>
+        <div class="table-wrap"><table><thead><tr><th>Módulo</th><th>O que apresenta</th></tr></thead><tbody>
+          <tr><td>Dashboard</td><td>Indicadores, origens, evolução das entradas, rankings e alertas da operação.</td></tr><tr><td>Leads</td><td>Cadastro, pesquisa, filtros, status, carteiras, importação/exportação e ações administrativas.</td></tr><tr><td>Kanban</td><td>Cartões de clientes agrupados por etapa comercial.</td></tr><tr><td>Funil</td><td>Funil de vendas específico de cada empreendimento.</td></tr><tr><td>Evolução</td><td>Etapa operacional, setor responsável, próxima ação, prazo e pendências.</td></tr><tr><td>Tasks</td><td>Atrasos, prazos próximos, pareceres sem descrição e mensagens aos corretores.</td></tr><tr><td>Secretaria e CCA</td><td>Documentos, pesquisa e decisões de análise de crédito.</td></tr><tr><td>Corretores</td><td>Cadastro, disponibilidade e participação em distribuição.</td></tr><tr><td>Comissões</td><td>Registro de vendas, parcelas previstas e pagamentos.</td></tr><tr><td>Relatórios</td><td>Análise comercial por períodos e coortes de entrada.</td></tr><tr><td>Configurações</td><td>Usuários, origens, empreendimentos, feriados, roleta, etapas e modelos de documentos.</td></tr>
+        </tbody></table></div>
+        <div class="callout"><strong>Importante sobre o histórico</strong><p>Trocar um corretor não deveria ser representado apenas substituindo o nome no cadastro. O CRM registra ofertas e atribuições sucessivas, com estados e datas, e esse histórico é essencial para entender quem recebeu e quem efetivamente assumiu o cliente.</p></div>
+      </section>
+
+      <section id="corretor" class="section">
+        <div class="section-head"><span class="chapter">05</span><div><h2>Área do corretor</h2><p class="section-lead">A jornada do corretor começa na decisão sobre a oferta e continua com atendimento, pareceres, retorno e evolução documental.</p></div></div>
+        <h3>5.1. Leads recebidos: aceite ou recusa</h3>
+        <div class="mini-grid">
+          <div class="info-card"><span class="pill">ACEITAR</span><h4>Assume o atendimento</h4><p>A oferta deixa de estar pendente e o cliente entra na carteira. O relógio de atendimento é distinto do prazo que existia para aceitar.</p></div>
+          <div class="info-card"><span class="pill red">RECUSAR / EXPIRAR</span><h4>Devolve à distribuição</h4><p>A atribuição é encerrada, e o CRM tenta a próxima oferta segundo suas regras de elegibilidade e histórico.</p></div>
+        </div>
+        <p>A interface apresenta um contador de aceite. O valor padrão documentado é cinco minutos, mas há configuração do tempo de aceite e possibilidade de personalização por lead. A oferta pendente não deve ser exibida como atendimento já realizado.</p>
+        <h3>5.2. Início, carteira e Kanban</h3>
+        <p>A página inicial destaca ofertas pendentes, atendimentos que exigem atenção imediata, retornos de hoje e atrasados, clientes que voltaram e agenda próxima.</p>
+        <p>A <strong>Minha Carteira</strong> reúne atendimentos aceitos e permite alternar entre visualização em lista e Kanban sobre a mesma base. Existem filtros: <strong>Todos, Novos (24h), Novos, Atenção (48h), Em atendimento e Retornos</strong>, além de busca e filtro por etapa.</p>
+        <h3>5.3. Workspace do lead</h3>
+        <div class="card-grid">
+          <div class="info-card"><span class="tag">ABA 1</span><h4>Atendimento</h4><p>Dados do cliente, observações, contato, parecer comercial, etapa e agendamento de retorno.</p></div>
+          <div class="info-card"><span class="tag">ABA 2</span><h4>Evolução</h4><p>Simulação, entrevista, documentos e transições operacionais condicionadas a requisitos.</p></div>
+          <div class="info-card"><span class="tag">ABAS 3–4</span><h4>Documentos e Histórico</h4><p>Checklist, anexos, revisão documental, entradas do cliente e registros anteriores.</p></div>
+        </div>
+        <h3>5.4. Pareceres e etapas</h3>
+        <div class="table-wrap"><table><thead><tr><th>Ação</th><th>Efeito operacional documentado</th></tr></thead><tbody>
+          <tr><td>Primeiro Contato</td><td>Pode iniciar o atendimento e renovar prazo conforme a etapa configurada.</td></tr><tr><td>Em atendimento</td><td>Registra o acompanhamento ativo e usa a transição de parecer correspondente.</td></tr><tr><td>Documentação / Simulação</td><td>Etapas que podem renovar prazo dentro da regra do Kanban.</td></tr><tr><td>Qualificação</td><td>Exige valor estimado da venda para qualificar o lead.</td></tr><tr><td>Venda</td><td>Aciona a transição comercial de fechamento no atendimento.</td></tr><tr><td>Cliente não respondeu</td><td>Registra a tentativa e pode acionar redistribuição, conforme as condições da regra.</td></tr><tr><td>Sem interesse</td><td>Encerra o atendimento pela classificação correspondente.</td></tr><tr><td>Complementação</td><td>Acrescenta texto ao histórico sem trocar status, posse ou prazo.</td></tr>
+        </tbody></table></div>
+        <h3>5.5. Retornos, mensagens e histórico</h3>
+        <ul><li><strong>Agenda:</strong> compromissos de retorno marcados pelo corretor, com data e sem horário.</li><li><strong>Cliente voltou:</strong> a nova entrada comercial oficial é registrada pela administração; a agenda não equivale a essa entrada.</li><li><strong>Mensagens:</strong> a administração pode fazer perguntas sobre o lead e o corretor responder no CRM.</li><li><strong>Histórico:</strong> atendimentos fechados permanecem consultáveis.</li><li><strong>Comissões:</strong> o corretor pode visualizar parcelas vinculadas às suas vendas, quando cadastradas.</li></ul>
+        <div class="callout warning"><strong>WhatsApp não é sinônimo de registro automático</strong><p>O CRM apresenta atalhos para contato por WhatsApp, mas o código principal consultado não comprova que toda conversa externa seja automaticamente importada como parecer. O registro do atendimento é uma ação própria.</p></div>
+      </section>
+
+      <section id="evolucao" class="section">
+        <div class="section-head"><span class="chapter">06</span><div><h2>Evolução: secretaria e CCA</h2><p class="section-lead">O andamento documental tem estados, requisitos e responsáveis distintos das etapas comerciais.</p></div></div>
+        <div class="diagram"><div class="diagram-top"><h3>Mapa 3 — Qualificação, documentos e crédito</h3><span class="diagram-index">Evolução</span></div><div class="graph-scroll">
+          <svg class="flow-svg" viewBox="0 0 920 920" role="img" aria-label="Fluxo documental do corretor para a secretaria e CCA, incluindo pendências e resultados">
+            <defs><marker id="arrow2" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#a2a6c2" stroke-width="1.5"/></marker></defs>
+            <g fill="none" stroke="#a2a6c2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow2)">
+              <path d="M460 106 V148"/><path d="M460 226 V269"/><path d="M460 347 V393"/><path d="M460 473 V516"/><path d="M460 596 V640"/><path d="M460 716 V750 H157 V787"/><path d="M460 750 V787"/><path d="M460 750 H760 V787"/>
+              <path d="M282 438 H257"/><path d="M138 399 V309 H282"/><path d="M460 863 V889 H880 V553 H638"/>
+            </g>
+            <rect class="box dark" x="282" y="30" width="356" height="76" rx="16"/><text class="node-text white" x="460" y="60">Corretor</text><text class="node-sub white" x="460" y="84">Simulação + entrevista</text>
+            <rect class="box blue" x="282" y="148" width="356" height="78" rx="15"/><text class="node-text" x="460" y="180">Qualificação</text><text class="node-sub" x="460" y="203">Ficha e dados do cliente</text>
+            <rect class="box blue" x="282" y="269" width="356" height="78" rx="15"/><text class="node-text" x="460" y="300">Validação documental</text><text class="node-sub" x="460" y="324">Checklist e arquivos</text>
+            <rect class="box orange" x="282" y="393" width="356" height="80" rx="15"/><text class="node-text" x="460" y="424">Pesquisa da Secretaria</text><text class="node-sub" x="460" y="449">Parecer e pendências</text>
+            <rect class="box red" x="19" y="399" width="238" height="79" rx="14"/><text class="node-text" x="138" y="428">Se houver pendência</text><text class="node-sub" x="138" y="452">Corretor corrige</text>
+            <rect class="box dark" x="282" y="516" width="356" height="80" rx="15"/><text class="node-text white" x="460" y="546">Avaliação CCA</text><text class="node-sub white" x="460" y="572">Análise de crédito</text>
+            <rect class="box" x="282" y="640" width="356" height="76" rx="15"/><text class="node-text" x="460" y="670">Resultado da CCA</text><text class="node-sub" x="460" y="693">Decisão registrada no histórico</text>
+            <rect class="box green" x="20" y="787" width="274" height="76" rx="15"/><text class="node-text" x="157" y="817">Aprovado</text><text class="node-sub" x="157" y="842">Encaminhar para análise</text>
+            <rect class="box orange" x="322" y="787" width="276" height="76" rx="15"/><text class="node-text" x="460" y="816">Condicionado</text><text class="node-sub" x="460" y="839">ou não avaliado: tratar e reenviar</text>
+            <rect class="box red" x="626" y="787" width="274" height="76" rx="15"/><text class="node-text" x="763" y="817">Reprovado</text><text class="node-sub" x="763" y="842">Sem avanço automático</text>
+          </svg>
+        </div><p class="diagram-caption">A secretaria trata correções e encaminhamentos. Uma decisão da CCA não movimenta automaticamente o lead para a etapa seguinte: o avanço aprovado exige uma ação explícita.</p></div>
+        <h3>6.1. O que o corretor prepara</h3>
+        <p>O corretor preenche dados de simulação, entrevista, objetivo da compra, composição familiar, situação profissional, observações financeiras e restrições declaradas. O sistema valida a ficha e a existência dos documentos exigidos antes de determinadas transições.</p>
+        <p>Se faltarem arquivos, se houver documentos reprovados ou se os requisitos não estiverem satisfeitos, o avanço pode ficar bloqueado até a correção. Arquivos aguardando revisão têm indicação distinta de arquivos reprovados.</p>
+        <h3>6.2. Secretaria de Vendas</h3>
+        <ul><li>Criação de checklist a partir de modelos ativos.</li><li>Recebimento e conferência de documentos enviados.</li><li>Aprovação ou reprovação de arquivos, com motivo obrigatório para reprovação.</li><li>Registro de documentos entregues e observações.</li><li>Pesquisa interna e registro de resultado de consultas, parecer, pendências e recomendações.</li><li>Devolução de pendências ao corretor e revisão posterior.</li><li>Finalização ou reabertura de pesquisa, quando permitida.</li><li>Encaminhamento para a CCA e geração de dossiê PDF com documentos aprovados.</li></ul>
+        <h3>6.3. CCA — análise de crédito</h3>
+        <p>O perfil CCA registra renda considerada, valor de financiamento, entrada, FGTS, programa, observações e resultado detalhado.</p>
+        <div class="table-wrap"><table><thead><tr><th>Status CCA</th><th>Consequência operacional</th></tr></thead><tbody>
+          <tr><td>Em análise</td><td>Aguarda conclusão e decisão.</td></tr><tr><td>Aprovado</td><td>A secretaria pode executar o encaminhamento para análise.</td></tr><tr><td>Condicionado</td><td>Exige tratamento das condições e pode retornar à CCA.</td></tr><tr><td>Não avaliado</td><td>Exige tratamento ou dados adicionais antes de reenvio.</td></tr><tr><td>Reprovado</td><td>Não gera avanço automático; a decisão fica registrada.</td></tr>
+        </tbody></table></div>
+        <p>O modelo do CRM ainda prevê etapas posteriores de <strong>Análise</strong> e <strong>Reserva/Habitacional</strong>. A decisão final da CCA mantém histórico imutável, e o próximo passo pertence à secretaria ou administração.</p>
+      </section>
+
+      <section id="automacoes" class="section">
+        <div class="section-head"><span class="chapter">07</span><div><h2>Prazos, rodízio e automações</h2><p class="section-lead">O sistema possui relógios diferentes para oferta e para atendimento. Misturá-los altera regras centrais do processo.</p></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Regra</th><th>Comportamento do CRM</th><th>Observação</th></tr></thead><tbody>
+          <tr><td>Aceite da oferta</td><td>Padrão de 5 minutos.</td><td>Pode existir configuração geral ou por lead.</td></tr><tr><td>Verificação do aceite</td><td>Rotina de expiração a cada minuto.</td><td>Oferta não aceita pode seguir para outro elegível.</td></tr><tr><td>Atendimento aceito</td><td>Prazo padrão de 3 dias úteis.</td><td>Separado do prazo anterior.</td></tr><tr><td>Horário operacional</td><td>Segunda a sexta, 8h–18h.</td><td>Considera feriados cadastrados e fuso de Brasília.</td></tr><tr><td>Atenção</td><td>Prazo restante de até 48 horas.</td><td>Lente da carteira e indicador de prazo.</td></tr><tr><td>Aviso antecipado</td><td>Dentro das últimas 24 horas, se elegível.</td><td>Sininho e push configurado.</td></tr><tr><td>Atendimento vencido</td><td>Verificação automática periódica.</td><td>Pode encerrar e redistribuir.</td></tr><tr><td>Renovação do prazo</td><td>Etapas configuradas no Kanban.</td><td>Primeiro Contato, Em atendimento, Documentação, Qualificação e Simulação.</td></tr><tr><td>Prorrogação</td><td>Admin adiciona dias úteis.</td><td>Não exige nova oferta nem troca de corretor.</td></tr><tr><td>Corretor indisponível</td><td>Deixa de receber novas ofertas automáticas.</td><td>Carteira anterior não é automaticamente removida.</td></tr>
+        </tbody></table></div>
+        <div class="diagram"><div class="diagram-top"><h3>Mapa 4 — Dois prazos, duas decisões</h3><span class="diagram-index">SLA</span></div>
+          <div class="mini-grid"><div class="info-card" style="border-top:4px solid var(--orange)"><span class="pill orange">PRAZO 1</span><h4>Decidir sobre a oferta</h4><p><strong>Começa quando o lead é oferecido.</strong> O corretor aceita ou recusa; o tempo pode acabar sem aceite. O resultado pode gerar redistribuição.</p></div><div class="info-card" style="border-top:4px solid var(--purple)"><span class="pill purple">PRAZO 2</span><h4>Realizar o atendimento</h4><p><strong>Vale após o aceite.</strong> O corretor acompanha, registra parecer e evolui o cliente. Há prazo, alertas, renovação e eventual expiração.</p></div></div>
+          <div class="callout" style="margin-bottom:0"><strong>Não misturar:</strong> uma oferta não aceita não é um atendimento aceito; o sistema utiliza campos e verificações distintos para os dois prazos.</div>
+        </div>
+        <h3>Regras de rodízio e elegibilidade</h3><p>O sistema pode trabalhar com fila global ou por empreendimento, seleção de profissionais elegíveis, disponibilidade, participação em rodízio e tratamento de último recurso. A recusa, o timeout e alguns encerramentos são caminhos que podem provocar nova oferta. A passagem pela fila depende de regras do banco e não corresponde simplesmente a uma distribuição uniforme sem histórico.</p>
+      </section>
+
+      <section id="perfis" class="section">
+        <div class="section-head"><span class="chapter">08</span><div><h2>Quem faz o quê</h2><p class="section-lead">Matriz operacional resumida para diferenciar execução, supervisão e consulta entre os perfis.</p></div></div>
+        <div class="table-wrap"><table class="matrix"><thead><tr><th>Atividade</th><th>Admin</th><th>Corretor</th><th>Secretaria</th><th>CCA</th></tr></thead><tbody>
+          <tr><td>Cadastrar / importar leads</td><td class="ok">Executa</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Distribuir / redistribuir</td><td class="ok">Executa</td><td>Recebe</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Aceitar ou recusar</td><td>Acompanha</td><td class="ok">Executa</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Contato e parecer</td><td>Supervisiona</td><td class="ok">Executa</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Retorno comercial</td><td>Registra entrada</td><td>Agenda</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Simulação e entrevista</td><td>Consulta</td><td class="ok">Executa</td><td>Consulta</td><td>Consulta</td></tr>
+          <tr><td>Documentos</td><td>Acompanha</td><td>Envia</td><td class="ok">Revisa</td><td>Consulta</td></tr>
+          <tr><td>Pesquisa operacional</td><td>Acompanha</td><td>Corrige</td><td class="ok">Executa</td><td class="dash">—</td></tr>
+          <tr><td>Decisão de crédito</td><td>Acompanha</td><td>Consulta</td><td>Encaminha</td><td class="ok">Executa</td></tr>
+          <tr><td>Configurações e acesso</td><td class="ok">Executa</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+          <tr><td>Vendas e comissões</td><td class="ok">Registra</td><td>Consulta próprias</td><td class="dash">—</td><td class="dash">—</td></tr>
+        </tbody></table></div>
+        <div class="observacao"><strong>Perfil SDR:</strong> opera uma fila separada de leads ainda sem atribuição. A RLS e as validações do servidor restringem cada perfil às informações e ações autorizadas.</div>
+      </section>
+
+      <section id="bitrix" class="section">
+        <div class="section-head"><span class="chapter">09</span><div><h2>Pontos a preservar na migração ao Bitrix</h2><p class="section-lead">Esta é uma lista de referência sobre os dados e comportamentos existentes, não uma determinação de como a implantação será feita.</p></div></div>
+        <div class="card-grid">
+          <div class="info-card"><span class="tag">DADOS</span><h4>Cadastro e entrada comercial</h4><p>ID do lead, nome, telefone, origem, empreendimento, classificação, data inicial e retornos comerciais.</p></div>
+          <div class="info-card"><span class="tag">POSSE</span><h4>Atribuições</h4><p>Oferta, quem recebeu, aceite, recusa, expiração, corretor atual e responsáveis anteriores.</p></div>
+          <div class="info-card"><span class="tag">ATENDIMENTO</span><h4>Histórico</h4><p>Pareceres, observações, tentativas, etapas, mensagens, retornos e prazos.</p></div>
+          <div class="info-card"><span class="tag">DOCUMENTOS</span><h4>Arquivos e aprovações</h4><p>Checklist, anexos, conferências, rejeições, pendências e dossiês.</p></div>
+          <div class="info-card"><span class="tag">CRÉDITO</span><h4>Análise CCA</h4><p>Dados da análise, decisão, justificativa, histórico e encaminhamento posterior.</p></div>
+          <div class="info-card"><span class="tag">GESTÃO</span><h4>Relatórios e comissões</h4><p>Coortes, indicadores, vendas, parcelas e acessos por perfil.</p></div>
+        </div>
+        <h3>Cuidados antes do desligamento</h3><ul><li>Conferir clientes ativos, expirados, sem corretor, encerrados e arquivados.</li><li>Preservar a primeira data de entrada e as novas entradas comerciais registradas.</li><li>Reconciliar todos os históricos de atribuições, não apenas o corretor atual.</li><li>Conferir documentos, anexos, aprovações e registros da CCA.</li><li>Mapear cada perfil de acesso e suas permissões no novo ambiente.</li><li>Confirmar que relatórios e comissões mantêm seu significado original.</li></ul>
+        <div class="callout danger"><strong>Atenção: código não é backup</strong><p>O GitHub apresenta a implementação do sistema, mas não substitui a exportação dos dados reais do banco, dos arquivos enviados e dos históricos. O desligamento só deve ocorrer após verificação de integridade e acesso aos registros necessários.</p></div>
+      </section>
+
+      <section id="validacoes" class="section">
+        <div class="section-head"><span class="chapter">10</span><div><h2>Testes e pontos pendentes</h2><p class="section-lead">Cenários úteis para comparar o funcionamento atual com o que estará disponível no novo CRM.</p></div></div>
+        <h3>Checklist de validação funcional</h3>
+        <ul class="checks"><li>Lead novo entra com origem e empreendimento corretos.</li><li>Distribuição automática escolhe corretor elegível.</li><li>Distribuição manual preserva responsável escolhido.</li><li>Aceite coloca o lead na carteira.</li><li>Recusa e timeout seguem a regra de redistribuição.</li><li>Histórico de cada oferta anterior permanece.</li><li>Parecer altera etapa e prazo quando previsto.</li><li>Atendimento vencido recebe tratamento adequado.</li><li>Agenda mostra retorno sem registrar falsa reentrada.</li><li>Secretaria aprova ou reprova arquivos com motivo.</li><li>CCA registra decisão e histórico.</li><li>O avanço após CCA exige ação autorizada.</li><li>Vendas e parcelas são consultáveis corretamente.</li><li>Relatórios seguem a data comercial de entrada.</li><li>Corretor não visualiza carteira de outro profissional.</li><li>Administração acompanha exceções e pendências.</li></ul>
+        <h3>Funcionalidades citadas como planejamento, não como operação confirmada</h3>
+        <div class="mini-grid"><div class="info-card"><span class="pill orange">PLANEJADO</span><h4>Pedido de prorrogação no próprio CRM</h4><p>O BF-09 descreve uma futura solicitação do corretor com decisão administrativa. A prorrogação administrativa já existe; o fluxo interno de pedido não deve ser presumido.</p></div><div class="info-card"><span class="pill orange">PLANEJADO</span><h4>Carteira Simplificada / Expert</h4><p>O BF-08 descreve parecer diretamente na lista como melhoria posterior. O modo de lista/Kanban existente não comprova essa função Expert implantada.</p></div></div>
+        <div class="callout warning"><strong>Diferença que precisa de validação humana</strong><p>A documentação de negócio estabelece que o administrador registra a nova entrada comercial de “Cliente retornou”, enquanto o código ainda possui uma ação de marcação pelo corretor. Isso não deve ser tratado como regra pacificada sem conferir qual operação foi adotada.</p></div>
+        <p class="small">Há ainda um projeto separado <code>concretize-atendimento-api</code> para integração WhatsApp, descrito como MVP com modo de simulação ligado por padrão. Ele não foi considerado parte confirmada do fluxo produtivo do CRM principal.</p>
+      </section>
+
+      <section id="fontes" class="section">
+        <div class="section-head"><span class="chapter">11</span><div><h2>Fontes consultadas no GitHub</h2><p class="section-lead">Links para os principais arquivos de implementação e documentação. O repositório é privado e pode exigir acesso autorizado.</p></div></div>
+        <ul class="source-list"><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/README.md" target="_blank" rel="noopener noreferrer">README — visão geral e funcionalidades</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/AGENTS.md" target="_blank" rel="noopener noreferrer">AGENTS — regras de negócio</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/application/use-cases/criar-lead.ts" target="_blank" rel="noopener noreferrer">Cadastro e distribuição inicial</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/app/%28app%29/leads/%5Bid%5D/actions.ts" target="_blank" rel="noopener noreferrer">Intervenções administrativas</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/app/corretor/leads/actions.ts" target="_blank" rel="noopener noreferrer">Aceite e parecer do corretor</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/app/actions/evolucao.ts" target="_blank" rel="noopener noreferrer">Evolução operacional</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/app/%28app%29/secretaria/actions.ts" target="_blank" rel="noopener noreferrer">Processos da secretaria</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/app/%28app%29/cca/actions.ts" target="_blank" rel="noopener noreferrer">Processos da CCA</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/docs/bf/BF-07-aviso-antes-de-perder-lead.md" target="_blank" rel="noopener noreferrer">Avisos antes do vencimento</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/docs/bf/BF-09-pedido-de-prorrogacao.md" target="_blank" rel="noopener noreferrer">BF-09 — prorrogação planejada</a></li><li><a href="https://github.com/vitordevbath/concretize-crm/blob/main/docs/bf/BF-08-carteira-visao-expert.md" target="_blank" rel="noopener noreferrer">BF-08 — modo Expert planejado</a></li><li><a href="https://github.com/vitordevbath/concretize-atendimento-api/blob/main/README.md" target="_blank" rel="noopener noreferrer">MVP de WhatsApp separado</a></li></ul>
+        <div class="foot"><span>Documento informativo para consulta e alinhamento entre equipes.</span><span>Levantamento visual do fluxo atual · 28 de outubro de 2026</span></div>
+      </section>
+    </article>
+  </main>
+</div>
+</body>
+</html>
